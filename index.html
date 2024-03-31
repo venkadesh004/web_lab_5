@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajax Demo</title>
+</head>
+<body>
+    <h1>Ajax Demo</h1>
+    <button onclick="displayText()">Display Text Request</button>
+    <button onclick="displayJson()">Display Json Request</button>
+    <p id="textData" style="display: none;">Loading...</p>
+    <p id="jsonData" style="display: none;">Loading...</p>
+    <script>
+        const textPara = document.getElementById("textData");
+        const jsonPara = document.getElementById("jsonData");
+
+        function displayText() {
+            textPara.style.display = "block";
+        }
+
+        function displayJson() {
+            jsonPara.style.display = "block";
+        }
+
+        var textRequest = new XMLHttpRequest();
+        var jsonRequest = new XMLHttpRequest();
+
+        textRequest.onreadystatechange = function() {
+            if (this.readyState === 4 && this.status === 200) {
+                textPara.innerHTML = this.responseText;
+            }
+        }
+
+        jsonRequest.onreadystatechange = function() {
+            if (this.readyState === 4 && this.status === 200) {
+                console.log(this.responseText);
+                jsonPara.innerHTML = this.responseText;
+            }
+        }
+
+        textRequest.open("GET", "data.txt", true);
+        jsonRequest.open("GET", "jsonData.json", true);
+        
+        textRequest.send();
+        jsonRequest.send();
+    </script>
+</body>
+</html>
